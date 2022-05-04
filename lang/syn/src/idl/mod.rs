@@ -211,7 +211,7 @@ impl std::str::FromStr for IdlType {
         fn array_from_str(inner: &str) -> IdlType {
             match inner.strip_suffix(']') {
                 None => {
-                    let (raw_type, raw_length) = inner.split_once(';').unwrap();
+                    let (raw_type, raw_length) = inner.rsplit_once(';').unwrap();
                     let ty = IdlType::from_str(raw_type).unwrap();
                     let len = raw_length.replace('_', "").parse::<usize>().unwrap();
                     IdlType::Array(Box::new(ty), len)
@@ -318,7 +318,7 @@ mod tests {
         );
     }
 
-    // #[test]
+    #[test]
     fn array() {
         assert_eq!(
             IdlType::from_str("[Pubkey;16]").unwrap(),
@@ -326,7 +326,7 @@ mod tests {
         );
     }
 
-    // #[test]
+    #[test]
     fn array_with_underscored_length() {
         assert_eq!(
             IdlType::from_str("[u8;50_000]").unwrap(),
@@ -334,7 +334,7 @@ mod tests {
         );
     }
 
-    // #[test]
+    #[test]
     fn option() {
         assert_eq!(
             IdlType::from_str("Option<bool>").unwrap(),
@@ -342,7 +342,7 @@ mod tests {
         )
     }
 
-    // #[test]
+    #[test]
     fn vector() {
         assert_eq!(
             IdlType::from_str("Vec<bool>").unwrap(),
@@ -350,7 +350,7 @@ mod tests {
         )
     }
 
-    // #[test]
+    #[test]
     fn btree_map() {
         assert_eq!(
             IdlType::from_str("BTreeMap<u64, u64>").unwrap(),

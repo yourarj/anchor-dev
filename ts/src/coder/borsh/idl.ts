@@ -105,6 +105,24 @@ export class IdlCoder {
             types
           );
           return borsh.array(innerLayout, arrayLen, fieldName);
+        } else if ("map" in field.type) {
+          let mapKeyTy = field.type.map[0];
+          let mapValueTy = field.type.map[1];
+          let keyLayout = IdlCoder.fieldLayout(
+            {
+              name: undefined,
+              type: mapKeyTy,
+            },
+            types
+          );
+          let valueLayout = IdlCoder.fieldLayout(
+            {
+              name: undefined,
+              type: mapValueTy,
+            },
+            types
+          );
+          return borsh.map(keyLayout, valueLayout, fieldName);
         } else {
           throw new Error(`Not yet implemented: ${field}`);
         }
