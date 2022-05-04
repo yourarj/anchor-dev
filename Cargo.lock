@@ -77,7 +77,7 @@ version = "0.24.2"
 dependencies = [
  "anchor-syn",
  "anyhow",
- "bs58 0.4.0",
+ "bs58",
  "proc-macro2 1.0.36",
  "quote 1.0.15",
  "rustversion",
@@ -246,14 +246,14 @@ name = "anchor-syn"
 version = "0.24.2"
 dependencies = [
  "anyhow",
- "bs58 0.3.1",
- "heck 0.3.3",
+ "bs58",
+ "heck 0.4.0",
  "proc-macro2 1.0.36",
  "proc-macro2-diagnostics",
  "quote 1.0.15",
  "serde",
  "serde_json",
- "sha2",
+ "sha2 0.10.2",
  "syn 1.0.88",
  "thiserror",
 ]
@@ -439,12 +439,6 @@ dependencies = [
  "quote 1.0.15",
  "syn 1.0.88",
 ]
-
-[[package]]
-name = "bs58"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "476e9cd489f9e121e02ffa6014a8ef220ecb15c05ed23fc34cca13925dc283fb"
 
 [[package]]
 name = "bs58"
@@ -940,7 +934,7 @@ dependencies = [
  "ed25519",
  "rand 0.7.3",
  "serde",
- "sha2",
+ "sha2 0.9.9",
  "zeroize",
 ]
 
@@ -954,7 +948,7 @@ dependencies = [
  "ed25519-dalek",
  "failure",
  "hmac 0.9.0",
- "sha2",
+ "sha2 0.9.9",
 ]
 
 [[package]]
@@ -1628,7 +1622,7 @@ dependencies = [
  "libsecp256k1-gen-genmult",
  "rand 0.7.3",
  "serde",
- "sha2",
+ "sha2 0.9.9",
  "typenum",
 ]
 
@@ -2652,6 +2646,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sha2"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "55deaec60f81eefe3cce0dc50bda92d6d8e88f2a27df7c5033b42afeb1ed2676"
+dependencies = [
+ "cfg-if",
+ "cpufeatures",
+ "digest 0.10.3",
+]
+
+[[package]]
 name = "sha3"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2718,7 +2723,7 @@ dependencies = [
  "Inflector",
  "base64 0.12.3",
  "bincode",
- "bs58 0.4.0",
+ "bs58",
  "bv",
  "lazy_static",
  "serde",
@@ -2828,7 +2833,7 @@ checksum = "90c3cd0299b1cf59b5ad6a96ea7db9306e93e66ef395bed80ed5df960685083b"
 dependencies = [
  "base64 0.13.0",
  "bincode",
- "bs58 0.4.0",
+ "bs58",
  "clap 2.34.0",
  "indicatif",
  "jsonrpc-core",
@@ -2907,7 +2912,7 @@ version = "1.9.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34c9effc54db26704db05c474254e50a69fbd4c527df13aead8c8e38db127d7c"
 dependencies = [
- "bs58 0.4.0",
+ "bs58",
  "bv",
  "generic-array",
  "log",
@@ -2915,7 +2920,7 @@ dependencies = [
  "rustc_version 0.4.0",
  "serde",
  "serde_derive",
- "sha2",
+ "sha2 0.9.9",
  "solana-frozen-abi-macro",
  "solana-logger",
  "thiserror",
@@ -3030,7 +3035,7 @@ dependencies = [
  "blake3",
  "borsh",
  "borsh-derive",
- "bs58 0.4.0",
+ "bs58",
  "bv",
  "bytemuck",
  "console_error_panic_hook",
@@ -3051,7 +3056,7 @@ dependencies = [
  "serde",
  "serde_bytes",
  "serde_derive",
- "sha2",
+ "sha2 0.9.9",
  "sha3",
  "solana-frozen-abi",
  "solana-frozen-abi-macro",
@@ -3182,7 +3187,7 @@ dependencies = [
  "bincode",
  "bitflags",
  "borsh",
- "bs58 0.4.0",
+ "bs58",
  "bytemuck",
  "byteorder",
  "chrono",
@@ -3210,7 +3215,7 @@ dependencies = [
  "serde_bytes",
  "serde_derive",
  "serde_json",
- "sha2",
+ "sha2 0.9.9",
  "sha3",
  "solana-frozen-abi",
  "solana-frozen-abi-macro",
@@ -3228,7 +3233,7 @@ version = "1.9.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b25759d80a81f0303b2827344b365f886a74306fa6af7c898921333d04d1c99b"
 dependencies = [
- "bs58 0.4.0",
+ "bs58",
  "proc-macro2 1.0.36",
  "quote 1.0.15",
  "rustversion",
@@ -3267,7 +3272,7 @@ dependencies = [
  "Inflector",
  "base64 0.12.3",
  "bincode",
- "bs58 0.4.0",
+ "bs58",
  "lazy_static",
  "log",
  "serde",
@@ -3533,7 +3538,7 @@ dependencies = [
  "pbkdf2 0.4.0",
  "rand 0.7.3",
  "rustc-hash",
- "sha2",
+ "sha2 0.9.9",
  "thiserror",
  "unicode-normalization",
  "wasm-bindgen",

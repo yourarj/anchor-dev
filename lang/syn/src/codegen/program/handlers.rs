@@ -1,6 +1,6 @@
 use crate::codegen::program::common::*;
 use crate::{Program, State};
-use heck::CamelCase;
+use heck::ToUpperCamelCase;
 use quote::{quote, ToTokens};
 
 // Generate non-inlined wrappers for each instruction handler, since Solana's
@@ -789,7 +789,7 @@ pub fn generate(program: &Program) -> proc_macro2::TokenStream {
 }
 
 fn generate_ix_variant_name(name: String) -> proc_macro2::TokenStream {
-    let n = name.to_camel_case();
+    let n = name.to_upper_camel_case();
     n.parse().unwrap()
 }
 

@@ -1,7 +1,7 @@
 use crate::codegen::program::common::{generate_ix_variant, sighash, SIGHASH_GLOBAL_NAMESPACE};
 use crate::Program;
 use crate::StateIx;
-use heck::SnakeCase;
+use heck::ToSnakeCase;
 use quote::{quote, ToTokens};
 
 pub fn generate(program: &Program) -> proc_macro2::TokenStream {

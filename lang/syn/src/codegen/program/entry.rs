@@ -1,10 +1,15 @@
 use crate::program_codegen::dispatch;
 use crate::Program;
-use heck::CamelCase;
+use heck::ToUpperCamelCase;
 use quote::quote;
 
 pub fn generate(program: &Program) -> proc_macro2::TokenStream {
-    let name: proc_macro2::TokenStream = program.name.to_string().to_camel_case().parse().unwrap();
+    let name: proc_macro2::TokenStream = program
+        .name
+        .to_string()
+        .to_upper_camel_case()
+        .parse()
+        .unwrap();
     let fallback_maybe = dispatch::gen_fallback(program).unwrap_or(quote! {
         Err(anchor_lang::error::ErrorCode::InstructionMissing.into())
     });

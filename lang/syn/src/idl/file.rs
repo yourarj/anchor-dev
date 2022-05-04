@@ -4,7 +4,7 @@ use crate::parser::{self, accounts, docs, error, program};
 use crate::Ty;
 use crate::{AccountField, AccountsStruct, StateIx};
 use anyhow::Result;
-use heck::MixedCase;
+use heck::ToLowerCamelCase;
 use quote::ToTokens;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
@@ -52,7 +52,7 @@ pub fn parse(
                         methods
                             .iter()
                             .map(|method: &StateIx| {
-                                let name = method.ident.to_string().to_mixed_case();
+                                let name = method.ident.to_string().to_lower_camel_case();
                                 let args = method
                                     .args
                                     .iter()
@@ -66,7 +66,7 @@ pub fn parse(
                                         };
                                         let ty = tts.to_string().parse().unwrap();
                                         IdlField {
-                                            name: arg.name.to_string().to_mixed_case(),
+                                            name: arg.name.to_string().to_lower_camel_case(),
                                             docs: doc,
                                             ty,
                                         }
@@ -118,7 +118,8 @@ pub fn parse(
                                 };
                                 let ty = tts.to_string().parse().unwrap();
                                 IdlField {
-                                    name: parser::tts_to_string(&arg_typed.pat).to_mixed_case(),
+                                    name: parser::tts_to_string(&arg_typed.pat)
+                                        .to_lower_camel_case(),
                                     docs: doc,
                                     ty,
                                 }
@@ -155,7 +156,12 @@ pub fn parse(
                                 };
                                 let ty = tts.to_string().parse().unwrap();
                                 IdlField {
-                                    name: f.ident.as_ref().unwrap().to_string().to_mixed_case(),
+                                    name: f
+                                        .ident
+                                        .as_ref()
+                                        .unwrap()
+                                        .to_string()
+                                        .to_lower_camel_case(),
                                     docs: doc,
                                     ty,
                                 }
@@ -200,7 +206,7 @@ pub fn parse(
                         None
                     };
                     IdlField {
-                        name: arg.name.to_string().to_mixed_case(),
+                        name: arg.name.to_string().to_lower_camel_case(),
                         docs: doc,
                         ty: to_idl_type(&ctx, &arg.raw_arg.ty),
                     }
@@ -215,7 +221,7 @@ pub fn parse(
                 _ => Some(ret_type_str.parse().unwrap()),
             };
             IdlInstruction {
-                name: ix.ident.to_string().to_mixed_case(),
+                name: ix.ident.to_string().to_lower_camel_case(),
                 docs: ix.docs.clone(),
                 accounts,
                 args,
@@ -240,7 +246,7 @@ pub fn parse(
                         Some(i) => parser::tts_to_string(&i.path) == "index",
                     };
                     IdlEventField {
-                        name: f.ident.clone().unwrap().to_string().to_mixed_case(),
+                        name: f.ident.clone().unwrap().to_string().to_lower_camel_case(),
                         ty: to_idl_type(&ctx, &f.ty),
                         index,
                     }
@@ -468,7 +474,7 @@ fn parse_ty_defs(ctx: &CrateContext, no_docs: bool) -> Result<Vec<IdlTypeDefinit
                             None
                         };
                         Ok(IdlField {
-                            name: f.ident.as_ref().unwrap().to_string().to_mixed_case(),
+                            name: f.ident.as_ref().unwrap().to_string().to_lower_camel_case(),
                             docs: doc,
                             ty: to_idl_type(ctx, &f.ty),
                         })
@@ -625,12 +631,12 @@ fn idl_accounts(
                 });
                 let accounts = idl_accounts(ctx, accs_strct, global_accs, seeds_feature, no_docs);
                 IdlAccountItem::IdlAccounts(IdlAccounts {
-                    name: comp_f.ident.to_string().to_mixed_case(),
+                    name: comp_f.ident.to_string().to_lower_camel_case(),
                     accounts,
                 })
             }
             AccountField::Field(acc) => IdlAccountItem::IdlAccount(IdlAccount {
-                name: acc.ident.to_string().to_mixed_case(),
+                name: acc.ident.to_string().to_lower_camel_case(),
                 is_mut: acc.constraints.is_mutable(),
                 is_signer: match acc.ty {
                     Ty::Signer => true,
